@@ -3,7 +3,7 @@ from numpy.linalg import norm
 
 x = np.array([1, 2, 8, 3])
 y = np.array([-2, 2, 1, 9])
-# z = x * y
+z = x * y
 # print(f'Манхетенская норма: {norm(x, ord=1)}')
 # print(f'Евклидова норма: {norm(x, ord=2)}') # = print(norm(x))
 # print(f'Растояние между векторами (Манх.): {norm(y-x, ord=1)}')
