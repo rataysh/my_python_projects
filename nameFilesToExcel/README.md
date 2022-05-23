@@ -1,7 +1,8 @@
-Программа проходит по всем директориям начиная с заданной 
-и собирает наименования всех файлов.
-Результат выводит в excel формате на двух листах 
-(один с расширение файлов, второй без расширений):
+The program looks through all directories, starting with the one you entered, and collects the names of all files and their sizes.
+The result is output in excel format on two sheets 
+(with and without file extensions):
 
 
-![Снимок](https://user-images.githubusercontent.com/88318279/167254528-7e5389b4-631a-4c29-9c51-6da1b281b6bd.PNG)
+![Снимок](https://user-images.githubusercontent.com/88318279/169828726-9d3479fc-80c6-4796-b1b5-01717339c672.PNG)
+
+![Снимок2](https://user-images.githubusercontent.com/88318279/169828950-a01753f7-f4b9-4e7c-91bb-14004513aa34.PNG)
