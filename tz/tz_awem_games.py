@@ -21,24 +21,25 @@ try:
         # на основании CSV файла создаем Dataframe
         df_data_game_analyst = pd.read_csv(i)
         # убираем данные по игрокам меньше 4 уровня т.к. тестируемые изменения только с 4 уровня
-        df_change = df_data_game_analyst[df_data_game_analyst['Level'] > 4]
+        df_change = df_data_game_analyst[df_data_game_analyst['Level'] > 4].reset_index(drop=True)
         # Создаем dataframe для каждой версии
-        df_ver_1 = df_change[df_change['Version'] == 'v1']
-        df_ver_2 = df_change[df_change['Version'] != 'v1']
+        df_ver_1 = df_change[df_change['Version'] == 'v1'].reset_index(drop=True)
+        df_ver_2 = df_change[df_change['Version'] != 'v1'].reset_index(drop=True)
         # Собираем статистику по столбцам
         disc_1 = df_ver_1.describe()
         disc_2 = df_ver_2.describe()
-        df_ver_1.loc['Sum', :] = df_ver_1.sum(axis=0)
-        df_ver_2.loc['Sum', :] = df_ver_2.sum(axis=0)
-        # Конкатинируем статистику в конец таблицы
-        df_ver_1 = pd.concat([df_ver_1, disc_1], axis=0, join='outer')
-        df_ver_2 = pd.concat([df_ver_2, disc_2], axis=0, join='outer')
+        # Добовляем строку с итоговой суммой в конец таблицы c статистикой
+        disc_1.loc['Sum', :] = df_ver_1.sum(axis=0)
+        disc_2.loc['Sum', :] = df_ver_2.sum(axis=0)
+        df_stats = pd.concat([disc_1, disc_2], axis=0, join='outer')
 except ValueError:
+    # обработка ошибок
     print(f'Произошла ошибка')
 finally:
+    # сохраняем в excel файл в разных разрезах, для дальнейшего анализа
     with pd.ExcelWriter('awem_change.xlsx') as writer:
         df_change.to_excel(writer, sheet_name='data_full')
         df_ver_1.to_excel(writer, sheet_name='ver1')
         df_ver_2.to_excel(writer, sheet_name='ver2')
-        df_statistic
+        df_stats.to_excel(writer, sheet_name='stats')
     print('Данные собраны')
